@@ -20,12 +20,30 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <NavLink href="/sale">
+            <NavTextPrincipal>Sale</NavTextPrincipal>
+            <NavTextHover aria-hidden={true}>Sale</NavTextHover>
+          </NavLink>
+          <NavLink href="/new">
+            <NavTextPrincipal>New&nbsp;Releases</NavTextPrincipal>
+            <NavTextHover aria-hidden={true}>New&nbsp;Releases</NavTextHover>
+          </NavLink>
+          <NavLink href="/men">
+            <NavTextPrincipal>Men</NavTextPrincipal>
+            <NavTextHover aria-hidden={true}>Men</NavTextHover>
+          </NavLink>
+          <NavLink href="/women">
+            <NavTextPrincipal>Women</NavTextPrincipal>
+            <NavTextHover aria-hidden={true}>Women</NavTextHover>
+          </NavLink>
+          <NavLink href="/kids">
+            <NavTextPrincipal>Kids</NavTextPrincipal>
+            <NavTextHover aria-hidden={true}>Kids</NavTextHover>
+          </NavLink>
+          <NavLink href="/collections">
+            <NavTextPrincipal>Collections</NavTextPrincipal>
+            <NavTextHover aria-hidden={true}  >Collections</NavTextHover>
+          </NavLink>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -72,10 +90,12 @@ const MainHeader = styled.div`
 `;
 
 const DesktopNav = styled.nav`
+  position: relative;
+  overflow: hidden;
   display: flex;
   gap: clamp(1rem, 9.2vw - 4.5rem, 3.5rem);
   margin: 0px 48px;
-
+  opacity: 1;
   @media ${QUERIES.tabletAndSmaller} {
     display: none;
   }
@@ -115,6 +135,7 @@ const Filler = styled.div`
 `;
 
 const NavLink = styled.a`
+  position: relative;
   font-size: 1.125rem;
   text-transform: uppercase;
   text-decoration: none;
@@ -125,5 +146,34 @@ const NavLink = styled.a`
     color: var(--color-secondary);
   }
 `;
+
+const NavText = styled.span`
+  display: block;
+  transform: translateY(var(--translate-from));
+  transition: transform 0.5s ease-in-out;
+
+  @media (prefers-reduced-motion: no-preference) {
+    ${NavLink}:hover & {
+    transform: translateY(var(--translate-to));
+    transition: transform 0.25s ease-in-out;
+  } 
+  }
+`;
+
+const NavTextPrincipal = styled(NavText)`
+  --translate-from: 0%;
+  --translate-to: -100%;
+`;
+
+const NavTextHover = styled(NavText)`
+  position: absolute;
+  left: 0;
+  top: 0;
+  --translate-from: 100%;
+  --translate-to: 0%;
+  font-weight: ${WEIGHTS.bold};
+`;
+
+
 
 export default Header;
